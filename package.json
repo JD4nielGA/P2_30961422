@@ -1,0 +1,30 @@
+{
+  "name": "programacion2",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node dist/bin/www.js",
+    "dev": "nodemon --watch src --ext ts,ejs --exec ts-node src/app.ts",
+    "build": "tsc && copyfiles -u 1 src/**/*.ejs src/**/*.html src/public/**/* dist/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.8",
+    "@types/ejs": "^3.1.5",
+    "@types/express": "^5.0.1",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^22.15.2",
+    "copyfiles": "^2.4.1",
+    "nodemon": "^3.1.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
