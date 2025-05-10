@@ -1,19 +1,36 @@
 /* Estilo General */
+
+:root {
+--lime: #4CAF50;
+--white:#f9f9f9;
+--lightGray: #ddd;
+--darkBeige: #333;
+--green:#155724;
+--backgroundGreen:#c3e6cb;
+--borderGreen: #d4edda;
+--backgroundRed: #f8d7da;
+--crimson: #721c24;
+--borderRed: #f5c6cb;
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: var(--white);
+  color: var(--darkBeige);
 }
 
 /* Encabezado */
 header {
+  padding: 2rem 0.5rem;
+}
+
+.mainColor{
   text-align: center;
-  background: #4CAF50;
-  color: white;
-  padding: 2rem 1rem;
+  background: var(--lime);
+  color: var(--white);
 }
 
 header h1 {
@@ -31,19 +48,22 @@ section {
 }
 
 section h2 {
-  color: #4CAF50;
-  border-bottom: 2px solid #ddd;
+  color: var(--lime);
+  border-bottom: 2px solid var(--lightGray);
   padding-bottom: 0.5rem;
 }
 
 /* Imágenes */
-img {
-  max-width: 30%;
-  height: auto;
-  display: block;
-  margin: 1rem auto;
-  margin-top: 1px;
-  float: right 1px;
+.collection {
+display: flex;
+justify-content: space-between;
+flex-wrap: wrap;
+}
+
+.collectable {
+margin: 1rem auto;
+width: 45%;
+height: 300px;
 }
 
 /* Lista de Redes Sociales */
@@ -58,7 +78,7 @@ ul li {
 
 ul li a {
   text-decoration: none;
-  color: #4CAF50;
+  color: var(--lime);
   font-weight: bold;
 }
 
@@ -66,11 +86,191 @@ ul li a:hover {
   text-decoration: underline;
 }
 
+footer .collection{
+justify-content: center;
+}
+
+nav {
+padding: 1rem;
+}
+
+nav a {
+text-decoration: none;
+}
+
+nav a:visited {
+  color: inherit;
+}
+
+nav a:hover, nav a:active {
+  color: var(--darkBeige);
+}
+
+footer a {
+  cursor: default;
+}
+
+.social-media{
+width: 50px;
+height: 50px;
+border-radius: 100%;
+background-size: 25px;
+background-repeat: no-repeat;
+background-position: center;
+margin: 1rem;
+cursor: pointer
+}
+
+.instagram{
+background-image: url(/images/instagram.png);
+}
+
+.facebook{
+background-image: url(/images/facebook.png);
+}
+
+.twitter{
+background-image: url(/images/twitter.png);
+}
+
+.form-group {
+margin-bottom: 15px;
+}
+
+#submit-btn {
+padding: 1rem 5rem;
+border-radius: 0.5rem;
+border: none;
+cursor: pointer;
+}
+
+#contacto-form input, #contacto-form textarea, #payment-form input {
+border: 2px solid var(--lightGray);
+border-radius: 0.5rem;
+}
+
+#contacto-form textarea {
+width: 80%;
+resize: none;
+}
+
+.email-and-name {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+
+.email-and-name input {
+width: 35% !important;
+height: 40px !important;
+}
+
+@media (max-width: 850px) {
+  .email-and-name input {
+  width: 25%;
+  }
+}
+
+@media (max-width: 550px) {
+  .email-and-name input {
+  width: 15%;
+  }
+
+  #contacto-form textarea {
+  width: 60%;
+  }
+
+  .collection {
+  flex-direction: column;
+  }
+
+  footer .collection{
+  flex-direction: row;
+  }
+
+  .collectable {
+    width: 90%;
+    height: 250px;
+  }
+}
+
+.comment {
+display: flex;
+align-items: flex-start;
+justify-content: space-around;
+}
+
+label {
+display: block;
+margin-bottom: 5px;
+font-weight: bold;
+}
+
+#payment-form input, #payment-form select {
+width: 100%;
+padding: 8px;
+box-sizing: border-box;
+        }
+
+.center {
+  margin: 0 auto;
+}
+
+.alert {
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 4px;
+  position: relative;
+}
+
+.alert-success {
+background-color: var(--backgroundGreen);
+color: var(--green)
+border: 1px solid var(--borderGreen);
+}
+
+
+.alert-error {
+background-color: var(--backgroundRed);
+color: var(--red);
+border: 1px solid var(--borderRed);
+}
+
+
+.close-btn {
+position: absolute;
+right: 10px;
+top: 50%;
+transform: translateY(-50%);
+cursor: pointer;
+}
+
+.expiry-container {
+display: flex;
+gap: 10px;
+}
+
+table { 
+width: 100%; 
+border-collapse: collapse;
+border: 2px solid var(--darkBeige);
+}
+
+th, td { 
+padding: 8px; 
+text-align: left; 
+border-bottom: 1px solid #ddd; 
+}
+
+th { 
+  background-color: var(--lightGray); 
+}
+
 /* Pie de Página */
 footer {
   text-align: center;
-  background: #333;
-  color: white;
+  background: var(--darkBeige);
+  color: var(--white);
   padding: 1rem 0;
   margin-top: 2rem;
 }

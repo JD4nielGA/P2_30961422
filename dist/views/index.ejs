@@ -3,16 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TutorNest</title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-    <header>
-        <h1>TutorNest</h1>
+    <header class="mainColor">
+        <h1><%= title %></h1>
         <p>Tutorías escolares y universitarias para potenciar tu aprendizaje.</p>
     </header>
-    
-    <main>
+<nav class="mainColor">
+<a href="./admin/contacts">Contactos</a>  
+</nav>
+
+<main>
+    <% if (message) { %>
+        <div class="alert alert-<%= success ? 'success' : 'error' %>">
+            <%= message %>
+            <span class="close-btn" onclick="this.parentElement.style.display='none'">
+                &times;
+            </span>
+        </div>
+    <% } %>
+    <% if (paymentMessage) { %>
+    <div class="alert alert-<%= paymentSuccess ? 'success' : 'error' %>">
+        <%= paymentMessage %>
+        <button onclick="this.parentElement.style.display='none'">×</button>
+    </div>
+<% } %>
         <section id="descripcion">
             <h2>Descripción del Servicio</h2>
             <p>Ofrecemos tutorías personalizadas en diversas materias, adaptadas a tus necesidades. Aprende a tu ritmo con la ayuda de expertos.</p>
@@ -21,35 +38,122 @@
         <section id="beneficios">
             <h2>Beneficios y Ventajas</h2>
             <ul>
-                <li>Atención personalizada</li>
-                <li>Flexibilidad de horarios</li>
-                <li>Apoyo en temas escolares y universitarios</li>
+                <li>Atención personalizada.</li>
+                <li>Flexibilidad de horarios.</li>
+                <li>Apoyo en temas escolares y universitarios.</li>
             </ul>
         </section>
         
         <section id="imagenes">
             <h2>Imágenes</h2>
-            <img src="https://www.unir.net/wp-content/uploads/2020/08/iStock-1185682048.jpg" alt="Imagen de tutoría" />
-            <img src="https://us.123rf.com/450wm/ximagination/ximagination1409/ximagination140900215/31631963-estudiante-que-pulsa-con-un-ordenador-port%C3%A1til-en-todo-material-escolar.jpg">
-            <aside>
-                <img src="https://img.freepik.com/foto-gratis/grupo-jovenes-positivos-trabajando-juntos_23-2148431342.jpg?semt=ais_hybrid&w=740">
-                <img src="https://pymstatic.com/101520/conversions/ambientes-educativos-wide.jpg">
-            </aside>
+            <div class="collection">
+            <img class="collectable" src="https://images.pexels.com/photos/5306492/pexels-photo-5306492.jpeg?cs=srgb&dl=pexels-shkrabaanthony-5306492.jpg&fm=jpg&_gl=1*1olu0df*_ga*MTg3MDk4MTY0Ny4xNzQ2ODI3OTc2*_ga_8JE65Q40S6*czE3NDY4Mjc5NzYkbzEkZzEkdDE3NDY4MjkyNjckajAkbDAkaDA." alt="Imagen de tutoría presencial." />
+            <img class="collectable" src="https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="Imagen de tutoría virtual.">
+            <img class="collectable" src="https://images.pexels.com/photos/1326946/pexels-photo-1326946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Imagen de un joven estudiando.">
+                <img class="collectable" src="https://images.pexels.com/photos/5212700/pexels-photo-5212700.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Imagen de ambiente de aprendizaje.">
+            </div>
+        </section>
 
+        <section id="contacto">
+            <h2>Contacto</h2>
+            <p>Contáctanos a través del siguiente formulario:</p>
+              <form id="contacto-form" action="/contact/add" method="POST">
+                <div class="email-and-name">
+                  <label for="email">Correo Electrónico</label>
+                  <input type="email" name="email" id="email" maxlength="254" minlength="6" required>
+                  <label for="name">Nombres</label>
+                  <input type="text" name="name" id="name" maxlength="100" minlength="6" required>
+                  <br>
+                </div>
+                <br>
+                <div class="comment">
+                  <label for="comment">Comentario</label>
+                  <textarea rows="4" cols="15" name="comment" required id="comment" minlength="10" maxlength="500"></textarea>
+                  <br>
+                </div>
+                  <br>
+                  <button class="mainColor center" type="submit" id="submit-btn">Enviar</button>
+              </form>
         </section>
-        
-        <section id="redes-sociales">
-            <h2>Síguenos</h2>
-            <p>Encuéntranos en nuestras redes sociales:</p>
-            <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">Twitter</a></li>
-            </ul>
-        </section>
+
+<section id="payment">
+<% if (showPaymentForm) { %>
+        <h2>Formulario de Pago</h2>
+            <p>¿Interesado en pagar por nuestros servicios? ¡Puede empezar desde ya!</p>
+        <form action="/payment/add" method="POST" id="payment-form">
+            <div class="form-group">
+                <label>Servicio de Pago:</label>
+                <select name="service" required>
+                    <% paymentServices.forEach(service => { %>
+                        <option value="<%= service %>"><%= service %></option>
+                    <% }); %>
+                </select>
+            </div>
+
+            <div class="form-group email-and-name">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" maxlength="254" minlength="6" required>
+
+                <label for="cardholderName">Nombre del Titular:</label>
+                <input type="text" name="cardholderName" id="cardholderName" maxlength="100" minlength="2" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cardNumber">Número de Tarjeta:</label>
+                <input type="text" name="cardNumber" id="cardNumber" pattern="\d{13,19}" maxlength="19" minlength="13" required>
+            </div>
+
+            <div class="form-group">
+                <label>Fecha de Expiración:</label>
+                <div class="expiry-container">
+                    <select name="expMonth" required>
+                        <option value="">Mes</option>
+                        <% for(let i=1; i<=12; i++) { %>
+                            <option value="<%= i %>"><%= i %></option>
+                        <% } %>
+                    </select>
+                    <select name="expYear" required>
+                        <option value="">Año</option>
+                        <% const currentYear = new Date().getFullYear();
+                           for(let i=0; i<10; i++) { %>
+                            <option value="<%= currentYear + i %>"><%= currentYear + i %></option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="cvv">CVV/CVC:</label>
+                <input type="text" name="cvv" id="cvv" pattern="\d{3,4}" maxlength="4" minlength="3" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Monto:</label>
+                <input type="number" step="0.01" name="amount" id="amount" min="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="currency">Moneda:</label>
+                <select name="currency" id="currency" required>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                </select>
+            </div>
+
+            <button type="submit" id="submit-btn" class="mainColor center">Pagar</button>
+        </form>
+    <% } %>
+</section>
+
     </main>
     
     <footer>
+      <p style="font-size: 14px;">Contáctanos</p>
+      <section id="contacto" class="collection">
+        <a href="#"  id="facebook"><label for="facebook" class="mainColor social-media facebook"></label></a>
+        <a href="#"  id="instagram"><label for="instagram" class="mainColor social-media instagram"></label></a>
+        <a href="#"  id="x"><label for="x" class="mainColor social-media twitter"></label></a>
+      </section>
         <p>&copy; JD.2025 Clases Particulares. Todos los derechos reservados.</p>
     </footer>
 </body>
