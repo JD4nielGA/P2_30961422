@@ -32,7 +32,7 @@ app.use(cookieParser());
 const sessionSecret = process.env.SESSION_SECRET;
 const nodeEnv = process.env.NODE_ENV;
 
-if (nodeEnv == 'production') {
+if (nodeEnv === 'production') {
   app.set('trust proxy', 1); // Confía en el primer proxy (ej. Nginx, Heroku, Render)
 }
 
@@ -41,7 +41,7 @@ const sessionConfig: SessionOptions = {
   resave: false,
   saveUninitialized: true,
   cookie: { 
-    secure: nodeEnv == 'production',
+    secure: nodeEnv === 'production',
     sameSite: 'none',
     maxAge: 24 * 60 * 60 * 1000 // 1 día
   }
