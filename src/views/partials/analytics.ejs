@@ -1,0 +1,12 @@
+<script async src="https://www.googletagmanager.com/gtag/js?id=<%= gaKey %>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '<%= gaKey %>', {
+        cookie_domain: 'p2-30961422.onrender.com',
+        cookie_flags: 'SameSite=None; Secure',
+        debug_mode: true // Solo para pruebas (ver errores en consola)
+      });
+    </script>

@@ -53,6 +53,12 @@ section h2 {
   padding-bottom: 0.5rem;
 }
 
+.g-recaptcha {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 /* Imágenes */
 .collection {
 display: flex;
