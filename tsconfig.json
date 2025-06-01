@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "target": "ES2017",
+      "target": "ES6",
       "module": "commonjs",
       "outDir": "./dist",
       "rootDir": "./src",
@@ -14,11 +14,6 @@
         "*": ["node_modules/*"]
       }
     },
-    "lib": [
-      "ES2017",
-      "ESNext.AsyncIterable",
-      "node"
-    ],
     "include": ["src/**/*"],
     "exclude": ["node_modules"]
   }

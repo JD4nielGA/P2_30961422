@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContactsModel = void 0;
 const DatabaseFacade_1 = require("../facades/DatabaseFacade");
@@ -7,34 +16,38 @@ class ContactsModel {
         this.db = new DatabaseFacade_1.DatabaseFacade();
         this.initializeDB();
     }
-    async initializeDB() {
-        await this.db.initialize();
-        await this.db.runQuery(`
-                CREATE TABLE IF NOT EXISTS contacts (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    email TEXT NOT NULL,
-                    name TEXT NOT NULL,
-                    comment TEXT NOT NULL,
-                    ip_address TEXT NOT NULL,
-                    country TEXT NOT NULL,
-                    created_at TEXT DEFAULT CURRENT_TIMESTAMP
-                )
-            `);
+    initializeDB() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.db.initialize();
+            yield this.db.runQuery(`
+            CREATE TABLE IF NOT EXISTS contacts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT NOT NULL,
+                name TEXT NOT NULL,
+                comment TEXT NOT NULL,
+                ip_address TEXT NOT NULL,
+                created_at TEXT DEFAULT CURRENT_TIMESTAMP
+            )
+        `);
+        });
     }
-    async add(email, name, comment, country, ipAddress) {
-        const result = await this.db.runQuery(`INSERT INTO contacts (email, name, comment, country, ip_address) VALUES (?, ?, ?, ?, ?)`, [email, name, comment, country, ipAddress]);
-        return {
-            id: result.lastID,
-            email,
-            name,
-            comment,
-            country,
-            ipAddress,
-            createdAt: new Date().toISOString(),
-        };
+    add(email, name, comment, ipAddress) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const result = yield this.db.runQuery(`INSERT INTO contacts (email, name, comment, ip_address) VALUES (?, ?, ?, ?)`, [email, name, comment, ipAddress]);
+            return {
+                id: result.lastID,
+                email,
+                name,
+                comment,
+                ipAddress,
+                createdAt: new Date().toISOString(),
+            };
+        });
     }
-    async get() {
-        return this.db.allQuery('SELECT * FROM contacts ORDER BY created_at DESC');
+    get() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.db.allQuery('SELECT * FROM contacts ORDER BY created_at DESC');
+        });
     }
 }
 exports.ContactsModel = ContactsModel;

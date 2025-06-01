@@ -4,7 +4,6 @@ import session from 'express-session';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
-import 'dotenv/config';
 
 // Importar tipos para express-session
 import { SessionOptions } from 'express-session';
@@ -29,20 +28,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-const sessionSecret = process.env.SESSION_SECRET;
-const nodeEnv = process.env.NODE_ENV;
-
-if (nodeEnv == 'production') {
-  app.set('trust proxy', 1); // Confía en el primer proxy (ej. Nginx, Heroku, Render)
-}
-
+// Configuración de sesión con tipo explícito
 const sessionConfig: SessionOptions = {
-  secret: sessionSecret || 'something',
+  secret: process.env.SESSION_SECRET || 'something',
   resave: false,
   saveUninitialized: true,
   cookie: { 
-    secure: nodeEnv == 'production',
-    sameSite: 'none',
+    secure: process.env.NODE_ENV === 'production',
     maxAge: 24 * 60 * 60 * 1000 // 1 día
   }
 };
@@ -53,8 +45,8 @@ declare module 'express-session' {
   interface SessionData {
     message?: string;
     success?: boolean;
-    paymentMessage?: string;  
-    paymentSuccess?: boolean; 
+    paymentMessage?: string;  // <-- Añade esto
+    paymentSuccess?: boolean; // <-- Añade esto
   }
 }
 

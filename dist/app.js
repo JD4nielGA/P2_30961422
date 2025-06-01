@@ -9,7 +9,6 @@ const express_session_1 = __importDefault(require("express-session"));
 const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const morgan_1 = __importDefault(require("morgan"));
-require("dotenv/config");
 const app = (0, express_1.default)();
 // Configuración del motor de vistas
 app.set('views', path_1.default.join(__dirname, 'views'));
@@ -19,18 +18,13 @@ app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use((0, cookie_parser_1.default)());
-const sessionSecret = process.env.SESSION_SECRET;
-const nodeEnv = process.env.NODE_ENV;
-if (nodeEnv == 'production') {
-    app.set('trust proxy', 1); // Confía en el primer proxy (ej. Nginx, Heroku, Render)
-}
+// Configuración de sesión con tipo explícito
 const sessionConfig = {
-    secret: sessionSecret || 'something',
+    secret: process.env.SESSION_SECRET || 'something',
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: nodeEnv == 'production',
-        sameSite: 'none',
+        secure: process.env.NODE_ENV === 'production',
         maxAge: 24 * 60 * 60 * 1000 // 1 día
     }
 };

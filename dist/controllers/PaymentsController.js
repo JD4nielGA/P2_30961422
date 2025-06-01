@@ -1,35 +1,35 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaymentsController = void 0;
 const PaymentService_1 = require("../services/PaymentService");
-const Auth_1 = require("../middlewares/Auth");
-const validateRecaptcha = new Auth_1.ValidateRecaptcha;
 class PaymentsController {
     constructor() {
         this.service = new PaymentService_1.PaymentService();
     }
-    async add(req, res) {
-        try {
-            await validateRecaptcha.validate(req, res, async () => {
-                const { service, email, cardholderName, cardNumber, expMonth, expYear, cvv, amount, currency, description, reference } = req.body;
-                try {
-                    const result = await this.service.processPayment(service, email, cardholderName, cardNumber, expMonth, expYear, cvv, Number(amount), currency.toUpperCase(), description, reference);
-                    await this.service.getTransaction(result.transactionId);
-                    req.session.message = result.message;
-                    req.session.success = true;
-                }
-                catch (serviceError) {
-                    req.session.message = serviceError instanceof Error ? serviceError.message : 'Error en el pago';
-                    req.session.success = false;
-                }
+    add(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { service, email, cardholderName, cardNumber, expMonth, expYear, cvv, amount, currency } = req.body;
+                const result = yield this.service.processPayment(service, email, cardholderName, cardNumber, expMonth, expYear, cvv, Number(amount), currency.toUpperCase());
+                req.session.message = result.message;
+                req.session.success = true;
                 return res.redirect('/');
-            });
-        }
-        catch (error) {
-            req.session.message = error instanceof Error ? error.message : 'Error en el pago';
-            req.session.success = false;
-            return res.redirect('/');
-        }
+            }
+            catch (error) {
+                req.session.message = error instanceof Error ? error.message : 'Error en el pago';
+                req.session.success = false;
+                return res.redirect('/');
+            }
+        });
     }
 }
 exports.PaymentsController = PaymentsController;
