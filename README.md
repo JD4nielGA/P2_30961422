@@ -248,11 +248,6 @@ La función `sendContactFormNotification` en el servicio toma un objeto con los 
 La Fake Payment API se incorpora para emular operaciones de pago durante la etapa de desarrollo o en un entorno de pruebas.
 
 ### Configuración
-
-* **Localización de una API de Pagos Simulados:**
-    Busca en línea APIs de pagos falsos o simuladas. Algunas opciones comunes incluyen servicios como Stripe en modo de prueba o APIs específicamente diseñadas para testing de pagos. Para este ejemplo, asumiremos una API simple con un endpoint para procesar pagos.
-* **Obtención de un Token de Autorización (Opcional):**
-    Según la implementación de la Fake Payment API, podría requerirse un token de autorización. En este código, se espera que este token se proporcione a través de una variable de entorno.
 * **Definición de la Variable en `.env`:**
     ```
     FAKE_PAY=TU_TOKEN_DE_AUTORIZACION_SI_ES_REQUERIDO
