@@ -1,15 +1,20 @@
 import { Router, Request, Response } from 'express';
 import { ContactsController } from '../controllers/ContactsController';
 import { PaymentsController } from '../controllers/PaymentsController';
+import 'dotenv/config';
 
 const router = Router();
 const contactsController = new ContactsController();
 const paymentsController = new PaymentsController();
+const googleAnalyticsKey = process.env.GOOGLE_ANALYTICS_KEY;
+const googleRecatpcha = process.env.RECATPCHA_HTML;
 
 /* GET home page. */
 router.get('/', (req: Request, res: Response) => {
   res.render('index', { 
     title: 'TutorNest',
+    gaKey: googleAnalyticsKey,
+    grKey: googleRecatpcha,
     paymentServices: ['PayPal', 'Stripe', 'MercadoPago'],            
     showPaymentForm: true
   });

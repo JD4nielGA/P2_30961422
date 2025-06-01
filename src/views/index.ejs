@@ -3,8 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title><%= title %></title>        
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      <%- include('partials/analytics') %>
     <link rel="stylesheet" href="/stylesheets/style.css">
+
 </head>
 <body>
     <header class="mainColor">
@@ -72,6 +75,8 @@
                   <br>
                 </div>
                   <br>
+                  <div class="g-recaptcha" id="g-recaptcha" name="recaptcha" data-sitekey="<%= grKey %>"></div>
+
                   <button class="mainColor center" type="submit" id="submit-btn">Enviar</button>
               </form>
         </section>
@@ -140,6 +145,20 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                  <label for="description">Descripción</label>
+
+                <input type="text" name="description" id="description" maxlength="100" minlength="2" required>
+                  <br>
+            </div>
+
+<div class="form-group">
+                  <label for="reference">Referencia</label>
+                <input type="text" name="reference" id="reference" maxlength="100" minlength="2" required>
+                  <br>
+            </div>
+
+      <div class="g-recaptcha" data-sitekey="<%= grKey %>"></div>
             <button type="submit" id="submit-btn" class="mainColor center">Pagar</button>
         </form>
     <% } %>
