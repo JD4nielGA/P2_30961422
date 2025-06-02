@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node dist/bin/www.js",
     "dev": "nodemon --watch src --ext ts,ejs --exec ts-node src/app.ts",
-    "build": "tsc && copyfiles -u 1 src/**/*.ejs src/**/*.html src/public/**/* dist/",
+   "build": "tsc && cp -r src/views dist/views && cp -r src/public dist/public",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

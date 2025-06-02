@@ -55,7 +55,11 @@ export class ContactsController {
     public async index(req: Request, res: Response) {
         try {
             const contacts = await this.service.get();
-            res.render('contacts', { title: 'Administración de Contactos', contacts });
+            res.render('contacts', { 
+		    title: 'Administración de Contactos', 
+		    gaKey: process.env.GOOGLE_ANALYTICS_KEY || '', 
+		    cD: process.env.COOKIE_DOMAIN || '', 
+		    contacts });
         } catch (error) {
             res.status(500).render('error', { message: 'Error al cargar contactos' });
         }

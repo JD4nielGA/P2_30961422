@@ -51,11 +51,6 @@ class PaymentService {
         catch (error) {
             console.error('Respuesta de la API (data):', JSON.stringify(error.response.data, null, 2));
             console.error('Error al procesar el pago con la API externa:', error.message);
-            return {
-                success: false,
-                message: 'Error al procesar el pago',
-                // Puedes incluir más información de la respuesta si es necesario
-            };
             throw new Error('Error al procesar el pago');
         }
     }

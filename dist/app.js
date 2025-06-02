@@ -50,6 +50,11 @@ app.use((req, res, next) => {
     req.session.paymentSuccess = undefined;
     next();
 });
+app.use((req, res, next) => {
+    res.locals.gaKey = process.env.GOOGLE_ANALYTICS_KEY || '';
+    res.locals.cD = process.env.COOKIE_DOMAIN || '';
+    next();
+});
 const staticFilesPath = path_1.default.join(__dirname, 'public');
 app.use(express_1.default.static(staticFilesPath, {
     setHeaders: (res) => {
