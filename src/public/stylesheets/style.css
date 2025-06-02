@@ -102,7 +102,7 @@ padding: 1rem;
 
 nav a {
 text-decoration: none;
-color: var(--white)
+color: var(--white);
 }
 
 nav a:visited {
